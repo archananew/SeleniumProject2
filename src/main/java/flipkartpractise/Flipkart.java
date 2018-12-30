@@ -2,17 +2,20 @@ package flipkartpractise;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.Test;
 
 public class Flipkart {
-
-	public static void main(String[] args) throws InterruptedException {
+@Test
+	public void flipkart() throws InterruptedException {
 		// TODO Auto-generated method stub
 
 
@@ -35,6 +38,28 @@ public class Flipkart {
 			}
 			String mobilemodel = driver.findElementByXPath("//div[text()='Newest First']/following::div[@class='_3wU53n']").getText();
 			driver.findElementByXPath("//div[text()='Newest First']/following::div[@class='_3wU53n']").click();
+			
+			Set<String> windowHandles = driver.getWindowHandles();
+			List<String> allWindows = new ArrayList<>(windowHandles);
+			driver.switchTo().window(allWindows.get(1));
+			
+		
+			if(driver.getTitle().contains(mobilemodel)) {
+				System.out.println("Title Matches");
+			}else {
+				System.out.println(driver.getTitle());
+				System.out.println("Title does not match");
+			}
+			
+		
+			String ratings = driver.findElementByXPath("//span[contains(text(),'Ratings')]").getText();
+			System.out.println(ratings);
+			String reviews = driver.findElementByXPath("//span[contains(text(),'Reviews')]").getText();
+			System.out.println(reviews);
+			driver.quit();
+			
+		}
+
 		
 
 
@@ -46,4 +71,4 @@ public class Flipkart {
 
 	}
 
-}
+
